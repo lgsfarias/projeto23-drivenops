@@ -16,7 +16,7 @@ services:
     build: ./back-end
     restart: always
     ports:
-      - 5555:5000
+      - 5000:5000
     depends_on:
       - db_postgres
     env_file:
@@ -39,6 +39,8 @@ services:
       - build_react:/var/www/html
     depends_on:
       - node_web
+      - node_api
+      - db_postgres
 
 volumes:
   build_react:
