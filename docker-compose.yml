@@ -1,0 +1,45 @@
+version: '3'
+services:
+  db_postgres:
+    container_name: db_postgres
+    image: postgres
+    restart: always
+    ports:
+      - 5544:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    env_file:
+      - ./back-end/docker-compose.env
+    
+  node_api:
+    container_name: node_api
+    build: ./back-end
+    restart: always
+    ports:
+      - 5555:5000
+    depends_on:
+      - db_postgres
+    env_file:
+      - ./back-end/docker-compose.env
+
+  node_web:
+    container_name: node_web
+    build: ./front-end
+    restart: always
+    volumes:
+      - build_react:/var/www/html
+
+  nginx:
+    container_name: nginx
+    build: ./nginx
+    restart: always
+    ports:
+      - 8080:80
+    volumes:
+      - build_react:/var/www/html
+    depends_on:
+      - node_web
+
+volumes:
+  build_react:
+  pgdata:
