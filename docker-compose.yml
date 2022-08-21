@@ -9,7 +9,7 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     env_file:
-      - ./back-end/docker-compose.env
+      - ./back-end/.env
     
   node_api:
     container_name: node_api
@@ -20,7 +20,7 @@ services:
     depends_on:
       - db_postgres
     env_file:
-      - ./back-end/docker-compose.env
+      - ./back-end/.env
 
   node_web:
     container_name: node_web
