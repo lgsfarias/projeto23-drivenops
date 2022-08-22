@@ -1,7 +1,13 @@
 import AppRoutes from './Routes';
+import * as S from './styles/Base';
 
 function App() {
-  return <AppRoutes />;
+  return (
+    <>
+      <S.Reset />
+      <AppRoutes />
+    </>
+  );
 }
 
 export default App;
