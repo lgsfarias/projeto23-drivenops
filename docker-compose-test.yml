@@ -1,0 +1,23 @@
+version: '3'
+services:
+  db_postgres_test:
+      container_name: db_postgres_test
+      image: postgres
+      restart: always
+      ports:
+        - 5544:5432
+      volumes:
+        - pgdata:/var/lib/postgresql/data
+      env_file:
+        - ./back-end/.env.test
+
+  node_api_test:
+    container_name: node_api_test
+    build: ./back-end
+    restart: always
+    ports:
+      - 5000:5000
+    depends_on:
+      - db_postgres
+    env_file:
+      - ./back-end/.env.test
